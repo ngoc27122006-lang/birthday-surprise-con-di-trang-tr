@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Happy Birthday 😈</title>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 30px;
+            color: #fff;
+        }
+
+        .title {
+            font-size: 40px;
+            animation: shake 1s infinite;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .photo-frame {
+            width: 300px;
+            height: 300px;
+            margin: 20px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        button {
+            margin: 10px;
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: none;
+            background: #ff5f6d;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ffc371;
+            color: #333;
+        }
+
+        .wish-btn {
+            background: #6a82fb;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #wish {
+            margin-top: 20px;
+            font-size: 18px;
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0); }
+            25% { transform: rotate(1deg); }
+            50% { transform: rotate(-1deg); }
+            75% { transform: rotate(1deg); }
+            100% { transform: rotate(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="title">🎉 HAPPY BIRTHDAY 🎂</h1>
+    <p class="subtitle">Con đị trang trung 😴👇</p>
+
+    <div class="photo-frame">
+        <img id="photo" src="dim1.jpg">
+    </div>
+
+    <button onclick="nextPhoto()">👉 Xem thêm ảnh quý hiếm</button>
+    <button class="wish-btn" onclick="showWish()">💖 Lời chúc thật lòng</button>
+
+    <p id="wish" class="hidden"></p>
+
+    <script>
+        const photos = ["dim1.jpg", "dim2.jpg", "dim3.jpg"];
+        let index = 0;
+
+        function nextPhoto() {
+            index = (index + 1) % photos.length;
+            document.getElementById("photo").src = photos[index];
+        }
+
+        function showWish() {
+            const wish = document.getElementById("wish");
+            wish.classList.remove("hidden");
+            wish.innerHTML = `
+                🎂 Chúc mừng sinh nhật nhaaa 💕 <br><br>
+                Dù ảnh có hơi <b>dìm không lối thoát</b>  
+                nhưng bạn vẫn là <b>người bạn xịn nhất</b> 😎<br><br>
+                Chúc bạn luôn vui vẻ, khỏe mạnh  
+                và mãi là nạn nhân trung thành  
+                trong những tấm ảnh của mình 🤍😈
+            `;
+        }
+    </script>
+
+</body>
+</html>
