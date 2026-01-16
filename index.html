@@ -1,121 +1,159 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <title>Happy Birthday 😈</title>
+<meta charset="UTF-8">
+<title>😈 CHAOS MODE</title>
 
-    <style>
-        body {
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 30px;
-            color: #fff;
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        .title {
-            font-size: 40px;
-            animation: shake 1s infinite;
-        }
+    body {
+        overflow: hidden;
+        background: radial-gradient(circle at center, #ff00ff, #000020);
+        animation: bg 6s infinite alternate;
+        cursor: pointer;
+    }
 
-        .subtitle {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
+    @keyframes bg {
+        0% { background: radial-gradient(circle, #ff00ff, #000020); }
+        50% { background: radial-gradient(circle, #00ffff, #200020); }
+        100% { background: radial-gradient(circle, #ffff00, #001020); }
+    }
 
-        .photo-frame {
-            width: 300px;
-            height: 300px;
-            margin: 20px auto;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
+    .photo {
+        position: absolute;
+        border-radius: 20px;
+        box-shadow:
+            0 0 20px rgba(255,255,255,0.7),
+            0 0 40px rgba(255,0,255,0.8);
+        animation:
+            fall linear,
+            spin linear infinite,
+            pulse 1.5s infinite alternate;
+    }
 
-        .photo-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    @keyframes fall {
+        from { transform: translateY(-200px); }
+        to { transform: translateY(120vh); }
+    }
 
-        button {
-            margin: 10px;
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: none;
-            background: #ff5f6d;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    @keyframes spin {
+        from { rotate: 0deg; }
+        to { rotate: 360deg; }
+    }
 
-        button:hover {
-            background: #ffc371;
-            color: #333;
-        }
+    @keyframes pulse {
+        from { filter: hue-rotate(0deg) saturate(150%); }
+        to { filter: hue-rotate(360deg) saturate(300%); }
+    }
 
-        .wish-btn {
-            background: #6a82fb;
-        }
+    .shake {
+        animation: shake 0.15s infinite;
+    }
 
-        .hidden {
-            display: none;
-        }
+    @keyframes shake {
+        0% { transform: translate(0,0); }
+        25% { transform: translate(8px,-8px); }
+        50% { transform: translate(-8px,8px); }
+        75% { transform: translate(8px,8px); }
+        100% { transform: translate(0,0); }
+    }
 
-        #wish {
-            margin-top: 20px;
-            font-size: 18px;
-            background: rgba(255,255,255,0.2);
-            padding: 20px;
-            border-radius: 15px;
-        }
+    .flash {
+        position: fixed;
+        inset: 0;
+        background: white;
+        opacity: 0;
+        pointer-events: none;
+    }
 
-        @keyframes shake {
-            0% { transform: rotate(0); }
-            25% { transform: rotate(1deg); }
-            50% { transform: rotate(-1deg); }
-            75% { transform: rotate(1deg); }
-            100% { transform: rotate(0); }
-        }
-    </style>
+    .sparkle {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        animation: sparkle 1s linear forwards;
+    }
+
+    @keyframes sparkle {
+        from { transform: scale(1); opacity: 1; }
+        to { transform: scale(3); opacity: 0; }
+    }
+</style>
 </head>
 <body>
 
-    <h1 class="title">🎉 HAPPY BIRTHDAY 🎂</h1>
-    <p class="subtitle">Con đị trang trung 😴👇</p>
+<div id="flash" class="flash"></div>
 
-    <div class="photo-frame">
-        <img id="photo" src="dim1.jpg">
-    </div>
+<script>
+const images = ["dim1.jpg", "dim2.jpg", "dim3.jpg"];
 
-    <button onclick="nextPhoto()">👉 Xem thêm ảnh quý hiếm</button>
-    <button class="wish-btn" onclick="showWish()">💖 Lời chúc thật lòng</button>
+function rand(min, max) {
+    return Math.random() * (max - min) + min;
+}
 
-    <p id="wish" class="hidden"></p>
+function spawnImage(x = rand(0, innerWidth)) {
+    const img = document.createElement("img");
+    img.src = images[Math.floor(Math.random() * images.length)];
+    img.className = "photo";
 
-    <script>
-        const photos = ["dim1.jpg", "dim2.jpg", "dim3.jpg"];
-        let index = 0;
+    const size = rand(120, 260);
+    img.style.width = size + "px";
+    img.style.left = x + "px";
+    img.style.top = "-250px";
 
-        function nextPhoto() {
-            index = (index + 1) % photos.length;
-            document.getElementById("photo").src = photos[index];
-        }
+    img.style.animationDuration =
+        rand(3, 8) + "s, " +
+        rand(4, 10) + "s, 1.5s";
 
-        function showWish() {
-            const wish = document.getElementById("wish");
-            wish.classList.remove("hidden");
-            wish.innerHTML = `
-                🎂 Chúc mừng sinh nhật nhaaa 💕 <br><br>
-                Dù ảnh có hơi <b>dìm không lối thoát</b>  
-                nhưng bạn vẫn là <b>người bạn xịn nhất</b> 😎<br><br>
-                Chúc bạn luôn vui vẻ, khỏe mạnh  
-                và mãi là nạn nhân trung thành  
-                trong những tấm ảnh của mình 🤍😈
-            `;
-        }
-    </script>
+    document.body.appendChild(img);
+    setTimeout(() => img.remove(), 12000);
+}
+
+// mưa ảnh liên tục
+setInterval(() => spawnImage(), 350);
+
+// click = bùng nổ
+document.addEventListener("click", (e) => {
+    // flash
+    const flash = document.getElementById("flash");
+    flash.style.opacity = 0.9;
+    setTimeout(() => flash.style.opacity = 0, 100);
+
+    // rung
+    document.body.classList.add("shake");
+    setTimeout(() => document.body.classList.remove("shake"), 400);
+
+    // spam ảnh
+    for (let i = 0; i < 8; i++) {
+        spawnImage(e.clientX + rand(-200, 200));
+    }
+
+    // sparkles
+    for (let i = 0; i < 20; i++) {
+        const s = document.createElement("div");
+        s.className = "sparkle";
+        s.style.left = e.clientX + rand(-80,80) + "px";
+        s.style.top = e.clientY + rand(-80,80) + "px";
+        s.style.background =
+            `hsl(${rand(0,360)},100%,60%)`;
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 1000);
+    }
+});
+
+// mobile: chạm là nổ
+document.addEventListener("touchstart", (e) => {
+    const t = e.touches[0];
+    for (let i = 0; i < 10; i++) {
+        spawnImage(t.clientX + rand(-150,150));
+    }
+});
+</script>
 
 </body>
 </html>
